@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "fleet-telemetry.fullname" . }}
+  labels:
+    role: api
+    service: fleet-telemetry
+  {{- include "fleet-telemetry.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.fleetTelemetry.replicas }}
+  selector:
+    matchLabels:
+      role: api
+      service: fleet-telemetry
+    {{- include "fleet-telemetry.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        role: api
+        service: fleet-telemetry
+      {{- include "fleet-telemetry.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - command:
+        - /fleet-telemetry
+        - -config=/etc/fleet-telemetry/config.json
+        env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag
+          | default .Chart.AppVersion }}
+        livenessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /metrics
+            port: 9273
+            scheme: HTTP
+          initialDelaySeconds: 5
+          timeoutSeconds: 10
+        name: fleet-telemetry
+        ports:
+        - containerPort: 4269
+          name: profile
+          protocol: TCP
+        - containerPort: 8443
+          name: https
+          protocol: TCP
+        - containerPort: 9090
+          name: metrics
+          protocol: TCP
+        resources: {{- toYaml .Values.resources | nindent
+          10 }}
+        volumeMounts:
+        - mountPath: /etc/fleet-telemetry/
+          name: config
+        - mountPath: /etc/tesla/certs/server
+          name: server-certs
+      imagePullSecrets:
+      - name: {{ include "fleet-telemetry.fullname" . }}-docker-registry-creds
+      nodeSelector: {{- toYaml .Values.nodeSelector | nindent 8 }}
+      tolerations: {{- toYaml .Values.nodeSelector | nindent 8 }}
+      volumes:
+      - name: config
+        projected:
+          sources:
+          - configMap:
+              name: {{ include "fleet-telemetry.fullname" . }}
+      - name: server-certs
+        projected:
+          sources:
+          - secret:
+              name: {{ include "fleet-telemetry.fullname" . }}
