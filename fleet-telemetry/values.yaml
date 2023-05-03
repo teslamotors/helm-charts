@@ -18,21 +18,19 @@ tolerations: []
 replicas: 1
 service:
   ports:
-  - name: api
-    nodePort: 31210
-    port: 443
-    protocol: TCP
-    targetPort: 8443
-  type: NodePort
+    - name: api
+      port: 443
+      targetPort: 8443
+  type: ClusterIP
   targetGroupARN: ""
 serviceInternal:
   ports:
     - name: metrics
       port: 9273
-      targetPort: 0
+      targetPort: 9273
     - name: profile
       port: 4269
-      targetPort: 0
+      targetPort: 4269
   type: ClusterIP
 config:
   configJson: |-
