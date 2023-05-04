@@ -15,28 +15,3 @@ spec:
   {{- include "fleet-telemetry.selectorLabels" . | nindent 4 }}
   ports:
 	{{- .Values.service.ports | toYaml | nindent 2 -}}
----
-apiVersion: elbv2.k8s.aws/v1beta1
-kind: TargetGroupBinding
-metadata:
-  name: {{ include "fleet-telemetry.fullname" . }}-fleet-telemetry
-  labels:
-  {{- include "fleet-telemetry.labels" . | nindent 4 }}
-spec:
-  ipAddressType: ipv4
-  networking:
-    ingress:
-    - from:
-      - ipBlock:
-          cidr: 0.0.0.0/0
-      ports:
-      - port: 31210
-        protocol: TCP
-  nodeSelector:
-    matchLabels:
-      role: fleet-telemetry
-  serviceRef:
-    name: fleet-telemetry
-    port: 443
-  targetGroupARN: {{- .Values.service.targetGroupARN -}}
-  targetType: instance

@@ -22,7 +22,6 @@ service:
       port: 443
       targetPort: 8443
   type: ClusterIP
-  targetGroupARN: ""
 serviceInternal:
   ports:
     - name: metrics
