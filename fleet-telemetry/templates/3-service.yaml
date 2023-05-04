@@ -14,4 +14,4 @@ spec:
     service: fleet-telemetry
   {{- include "fleet-telemetry.selectorLabels" . | nindent 4 }}
   ports:
-	{{- .Values.service.ports | toYaml | nindent 2 -}}
+  {{- .Values.service.ports | toYaml | nindent 2 -}}
