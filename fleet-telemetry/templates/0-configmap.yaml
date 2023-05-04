@@ -6,5 +6,4 @@ metadata:
     service: fleet-telemetry
   {{- include "fleet-telemetry.labels" . | nindent 4 }}
 data:
-  config.json: {{ .Values.config.configJson | toYaml | indent
-    1 }}
+  config.json: {{ ( tpl (.Files.Get "config/config.json") . ) }}

@@ -7,7 +7,7 @@ metadata:
     service: fleet-telemetry
   {{- include "fleet-telemetry.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.fleetTelemetry.replicas }}
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       role: api
@@ -32,30 +32,27 @@ spec:
           failureThreshold: 5
           httpGet:
             path: /metrics
-            port: 9273
+            port: {{ .Values.config.metrics.port }}
             scheme: HTTP
           initialDelaySeconds: 5
           timeoutSeconds: 10
         name: fleet-telemetry
         ports:
-        - containerPort: 4269
+        - containerPort: {{ .Values.config.profile.port }}
           name: profile
           protocol: TCP
-        - containerPort: 8443
+        - containerPort: {{ .Values.config.port }}
           name: https
           protocol: TCP
-        - containerPort: 9090
+        - containerPort: {{ .Values.config.metrics.port }}
           name: metrics
           protocol: TCP
-        resources: {{- toYaml .Values.resources | nindent
-          10 }}
+        resources: {{- toYaml .Values.resources | nindent 10 }}
         volumeMounts:
         - mountPath: /etc/fleet-telemetry/
           name: config
         - mountPath: /etc/tesla/certs/server
           name: server-certs
-      imagePullSecrets:
-      - name: {{ include "fleet-telemetry.fullname" . }}-docker-registry-creds
       nodeSelector: {{- toYaml .Values.nodeSelector | nindent 8 }}
       tolerations: {{- toYaml .Values.nodeSelector | nindent 8 }}
       volumes:
