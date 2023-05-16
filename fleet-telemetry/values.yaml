@@ -3,8 +3,8 @@ tlsSecret:
   tlsCrt: ""
   tlsKey: ""
 image:
-  repository:
-  tag:
+  repository: tesla/fleet-telemetry
+  tag: v0.0.1
 resources:
   limits:
     cpu: 250m
