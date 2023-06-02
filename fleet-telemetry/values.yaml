@@ -17,7 +17,10 @@ tolerations: []
 replicas: 1
 service:
   ports:
-    - name: api
+    - name: http
+      port: 80
+      targetPort: 8080
+    - name: https
       port: 443
       targetPort: 8443
   type: ClusterIP
@@ -32,6 +35,8 @@ serviceInternal:
   type: ClusterIP
 config:
   port: 8443
+  status:
+    port: 8080
   metrics:
     port: 9273
   profile:
