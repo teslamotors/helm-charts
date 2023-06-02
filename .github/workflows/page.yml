@@ -1,0 +1,14 @@
+name: Publish to Github pges
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: gh-pages
+        token: ${{ secrets.GITHUB_TOKEN }}
