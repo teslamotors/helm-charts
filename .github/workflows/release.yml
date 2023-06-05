@@ -1,4 +1,4 @@
-name: Publish Release
+name: Release
 
 on:
   workflow_dispatch:
@@ -9,19 +9,7 @@ on:
         default: 'patch'
 
 jobs:
-  validate-input:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Validate input
-        id: validate
-        run: |
-          if [[ "${{ github.event.inputs.version_bump }}" != "major" && "${{ github.event.inputs.version_bump }}" != "minor" && "${{ github.event.inputs.version_bump }}" != "patch" ]]; then
-            echo "Invalid input for version_bump. Please provide 'major', 'minor', or 'patch'."
-            exit 1
-          fi
-
   release:
-    needs: validate-input
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
