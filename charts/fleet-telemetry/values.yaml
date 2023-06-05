@@ -1,0 +1,40 @@
+tlsSecret:
+  name: ""
+  create: false
+  tlsCrt: ""
+  tlsKey: ""
+image:
+  repository: tesla/fleet-telemetry
+  tag: v0.0.3
+resources: {}
+nodeSelector: {}
+tolerations: []
+replicas: 1
+service:
+  annotations: {}
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+    - name: https
+      port: 443
+      targetPort: 8443
+  type: ClusterIP
+serviceInternal:
+  ports:
+    - name: metrics
+      port: 9273
+      targetPort: 9273
+    - name: profile
+      port: 4269
+      targetPort: 4269
+  type: ClusterIP
+config:
+  port: 8443
+  status:
+    port: 8080
+  metrics:
+    port: 9273
+  profile:
+    port: 4269
+kubernetesClusterDomain: cluster.local

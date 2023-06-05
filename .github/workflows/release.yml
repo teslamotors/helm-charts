@@ -1,0 +1,41 @@
+name: Publish Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_bump:
+        description: 'Version bump (major, minor, patch)'
+        required: true
+        default: 'patch'
+
+jobs:
+  validate-input:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate input
+        id: validate
+        run: |
+          if [[ "${{ github.event.inputs.version_bump }}" != "major" && "${{ github.event.inputs.version_bump }}" != "minor" && "${{ github.event.inputs.version_bump }}" != "patch" ]]; then
+            echo "Invalid input for version_bump. Please provide 'major', 'minor', or 'patch'."
+            exit 1
+          fi
+
+  release:
+    needs: validate-input
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Helm
+        uses: azure/setup-helm@v3.5
+        with:
+          version: v3.10.2
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.4.0
+        with:
+          charts_dir: charts
+          config: index.yaml
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
