@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  fleet-telemetry:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-06-05T15:37:06.047321-07:00"
+    description: An Open Source Helm chart for fleet-telemetry
+    digest: dad52cc31ac943f062e1477cf437271c3ddd77eeb4f159f146bda48918ffc3f3
+    name: fleet-telemetry
+    type: application
+    urls:
+    - https://github.com/teslamotors/helm-charts/fleet-telemetry-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-06-05T15:37:06.046806-07:00"
