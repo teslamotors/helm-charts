@@ -2,6 +2,20 @@ tlsSecret:
   name: ""
   tlsCrt: ""
   tlsKey: ""
+# example:
+#  tlsCrt: |
+#    Issuer: CN=Tesla Vehicle Telemetry Test CA
+#      Validity
+#    Not Before: Mar  9 19:11:26 2023 GMT
+#    Not After : Jun 11 19:11:26 2025 GMT
+#    Subject: C=US, ST=California, L=Palo Alto, O=Tesla Inc, OU=Motors, CN=fleet-streaming-api.eng.vn.cloud.tesla.com
+#    -----BEGIN CERTIFICATE-----
+#    values of cert
+#    -----END CERTIFICATE-----
+#  tlsKey: |
+#    -----BEGIN RSA PRIVATE KEY-----
+#    values of key
+#    -----END RSA PRIVATE KEY-----
 image:
   repository: tesla/fleet-telemetry
   tag: v0.0.1
