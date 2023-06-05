@@ -18,7 +18,7 @@ tlsSecret:
 #    -----END RSA PRIVATE KEY-----
 image:
   repository: tesla/fleet-telemetry
-  tag: v0.0.1
+  tag: v0.0.3
 resources:
   limits:
     cpu: 250m

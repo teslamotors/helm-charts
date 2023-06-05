@@ -36,6 +36,14 @@ spec:
             scheme: HTTP
           initialDelaySeconds: 5
           timeoutSeconds: 10
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /status
+            port: {{ .Values.config.status.port }}
+            scheme: HTTP
+          initialDelaySeconds: 5
+          timeoutSeconds: 10
         name: fleet-telemetry
         ports:
         - containerPort: {{ .Values.config.profile.port }}
