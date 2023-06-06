@@ -30,6 +30,7 @@ serviceInternal:
       targetPort: 4269
   type: ClusterIP
 config:
+  data: ""
   port: 8443
   status:
     port: 8080
