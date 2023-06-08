@@ -59,7 +59,7 @@ spec:
         volumeMounts:
         - mountPath: /etc/fleet-telemetry/
           name: config
-        - mountPath: /etc/tesla/certs/server
+        - mountPath: /etc/certs/server
           name: server-certs
       nodeSelector: {{- toYaml .Values.nodeSelector | nindent 8 }}
       tolerations: {{- toYaml .Values.tolerations | nindent 8 }}

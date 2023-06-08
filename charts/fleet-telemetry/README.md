@@ -46,9 +46,12 @@ helm upgrade fleet-telemetry charts/fleet-telemetry -n fleet-telemetry
 | `service.type`        | Service Type                                                                        | ClusterIP               |
 
 ## Example
+* Set `config.data` in `values.yaml`
+```yaml
 service:
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-type: "internal"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb-ip"
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
     service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-1, subnet-2, subnet-3
   type: LoadBalancer
@@ -57,3 +60,97 @@ tlsSecret:
     value of the cert PEM
   tlsKey: |
     value the private key
+config:
+  data: |
+    {
+      "host": "0.0.0.0",
+      "port": 8443,
+      "status_port": 8080,
+      "log_level": "info",
+      "json_log_enable": true,
+      "namespace": "tesla_telemetry",
+      "reliable_ack": false,
+      "monitoring": {
+        "prometheus_metrics_port": 9273,
+        "profiler_port": 4269,
+        "profiling_path": "/tmp/trace.out"
+      },
+      "rate_limit": {
+        "enabled": true,
+        "message_interval_time": 30,
+        "message_limit": 1000
+      },
+      "records": {
+        "alerts": [
+          "logger"
+        ],
+        "errors": [
+          "logger"
+        ],
+        "V": [
+          "logger"
+        ]
+      },
+      "tls": {
+        "server_cert": "/etc/certs/server/tls.crt",
+        "server_key": "/etc/certs/server/tls.key"
+      }
+    }
+```
+```console
+helm install fleet-telemetry teslamotors/fleet-telemetry -n fleet-telemetry -f values.yaml
+```
+* Set `config.data` by `--set-file`
+```yaml
+service:
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb-ip"
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+    service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-1, subnet-2, subnet-3
+  type: LoadBalancer
+tlsSecret:
+  tlsCrt: |
+    value of the cert PEM
+  tlsKey: |
+    value the private key
+```
+```json
+{
+  "host": "0.0.0.0",
+  "port": 8443,
+  "status_port": 8080,
+  "log_level": "info",
+  "json_log_enable": true,
+  "namespace": "tesla_telemetry",
+  "reliable_ack": false,
+  "monitoring": {
+    "prometheus_metrics_port": 9273,
+    "profiler_port": 4269,
+    "profiling_path": "/tmp/trace.out"
+  },
+  "rate_limit": {
+    "enabled": true,
+    "message_interval_time": 30,
+    "message_limit": 1000
+  },
+  "records": {
+    "alerts": [
+      "logger"
+    ],
+    "errors": [
+      "logger"
+    ],
+    "V": [
+      "logger"
+    ]
+  },
+  "tls": {
+    "server_cert": "/etc/certs/server/tls.crt",
+    "server_key": "/etc/certs/server/tls.key"
+  }
+}
+```
+```console
+helm install fleet-telemetry teslamotors/fleet-telemetry -n fleet-telemetry -f values.yaml --set-file config.data=config.json
+```

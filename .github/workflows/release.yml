@@ -2,11 +2,6 @@ name: Release
 
 on:
   workflow_dispatch:
-    inputs:
-      version_bump:
-        description: 'Version bump (major, minor, patch)'
-        required: true
-        default: 'patch'
 
 jobs:
   release:
