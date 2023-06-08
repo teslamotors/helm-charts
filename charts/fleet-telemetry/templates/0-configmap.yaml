@@ -6,4 +6,4 @@ metadata:
     service: fleet-telemetry
   {{- include "fleet-telemetry.labels" . | nindent 4 }}
 data:
-  config.json: {{ .Values.config.data }}
+  config.json: {{ .Values.config.data | toJson }}
