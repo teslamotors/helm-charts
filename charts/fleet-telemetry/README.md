@@ -12,7 +12,7 @@ _See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation
 To install the chart with the release name `fleet-telemetry`:
 
 ```console
-helm install fleet-telemetry charts/fleet-telemetry -n fleet-telemetry
+helm install fleet-telemetry teslamotors/fleet-telemetry -n fleet-telemetry
 ```
 
 ## Uninstalling the Chart
@@ -27,7 +27,7 @@ The command removes all the Kubernetes components associated with the chart and 
 ## Upgrade the Chart
 To upgrade the chart with the release name `fleet-telemetry`:
 ```console
-helm upgrade fleet-telemetry charts/fleet-telemetry -n fleet-telemetry
+helm upgrade fleet-telemetry teslamotors/fleet-telemetry -n fleet-telemetry
 ```
 
 ## Configuration
