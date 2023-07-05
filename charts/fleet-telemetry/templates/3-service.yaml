@@ -11,6 +11,9 @@ metadata:
     {{- .Values.service.annotations | toYaml | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
+{{- if .Values.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+{{- end }}
   selector:
     role: api
     service: fleet-telemetry

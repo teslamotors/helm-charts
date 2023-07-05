@@ -31,19 +31,20 @@ helm upgrade fleet-telemetry charts/fleet-telemetry -n fleet-telemetry
 ```
 
 ## Configuration
-| Parameter             | Description                                                                         | Default                 |
-|-----------------------|-------------------------------------------------------------------------------------|-------------------------|
-| `tlsSecret.name`      | Name of existing secret, if this value is set `tlsCrt` and `tlsKey` will be ignored | `nil`                   |
-| `tlsSecret.tlsCrt`    | value of the certification                                                          | `nil`                   |
-| `tlsSecret.tlsKey`    | value of the encryption key                                                         | `nil`                   |
-| `image.repository`    | value of the docker image repo                                                      | `tesla/fleet-telemetry` |
-| `image.tag`           | value of the docker image tag                                                       | `v0.0.3`                |
-| `resources`           | CPU/Memory resource requests/limits                                                 | {}                      |
-| `nodeSelector`        | Node labels for pod assignment                                                      | {}                      |
-| `tolerations`         | Toleration labels for pod assignment                                                | {}                      |
-| `replicas`            | Number of pods                                                                      | `1`                     |
-| `service.annotations` | Service Annotations                                                                 | {}                      |
-| `service.type`        | Service Type                                                                        | ClusterIP               |
+| Parameter                | Description                                                                         | Default                 |
+|--------------------------|-------------------------------------------------------------------------------------|-------------------------|
+| `tlsSecret.name`         | Name of existing secret, if this value is set `tlsCrt` and `tlsKey` will be ignored | `nil`                   |
+| `tlsSecret.tlsCrt`       | value of the certification                                                          | `nil`                   |
+| `tlsSecret.tlsKey`       | value of the encryption key                                                         | `nil`                   |
+| `image.repository`       | value of the docker image repo                                                      | `tesla/fleet-telemetry` |
+| `image.tag`              | value of the docker image tag                                                       | `v0.0.3`                |
+| `resources`              | CPU/Memory resource requests/limits                                                 | {}                      |
+| `nodeSelector`           | Node labels for pod assignment                                                      | {}                      |
+| `tolerations`            | Toleration labels for pod assignment                                                | {}                      |
+| `replicas`               | Number of pods                                                                      | `1`                     |
+| `service.annotations`    | Service Annotations                                                                 | {}                      |
+| `service.type`           | Service Type                                                                        | ClusterIP               |
+| `service.loadBalancerIP` | Load balancer IP                                                                    | `nil`                   |
 
 ## Example
 * Set `config.data` in `values.yaml`
@@ -55,6 +56,7 @@ service:
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
     service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-1, subnet-2, subnet-3
   type: LoadBalancer
+  # loadBalancerIP: 1.2.3.4
 tlsSecret:
   tlsCrt: |
     value of the cert PEM
@@ -109,6 +111,7 @@ service:
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
     service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-1, subnet-2, subnet-3
   type: LoadBalancer
+  # loadBalancerIP: 1.2.3.4
 tlsSecret:
   tlsCrt: |
     value of the cert PEM
