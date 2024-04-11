@@ -37,7 +37,7 @@ helm upgrade fleet-telemetry teslamotors/fleet-telemetry -n fleet-telemetry
 | `tlsSecret.tlsCrt`    | value of the certification                                                          | `nil`                   |
 | `tlsSecret.tlsKey`    | value of the encryption key                                                         | `nil`                   |
 | `image.repository`    | value of the docker image repo                                                      | `tesla/fleet-telemetry` |
-| `image.tag`           | value of the docker image tag                                                       | `v0.0.3`                |
+| `image.tag`           | value of the docker image tag                                                       | `v0.2.0`                |
 | `resources`           | CPU/Memory resource requests/limits                                                 | {}                      |
 | `nodeSelector`        | Node labels for pod assignment                                                      | {}                      |
 | `tolerations`         | Toleration labels for pod assignment                                                | {}                      |
