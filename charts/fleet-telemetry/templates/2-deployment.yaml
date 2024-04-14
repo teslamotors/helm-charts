@@ -27,9 +27,9 @@ spec:
         env:
         - name: KUBERNETES_CLUSTER_DOMAIN
           value: {{ quote .Values.kubernetesClusterDomain }}
-        {{- range $key, $val := .Values.env }}
-        - name: {{ $key }}
-          value: {{ $val | quote }}
+        {{- if .Values.gcpSecret }}
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /etc/gcp/key.json
         {{- end}}
         image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
         livenessProbe:
@@ -65,6 +65,10 @@ spec:
           name: config
         - mountPath: /etc/certs/server
           name: server-certs
+        {{ if .Values.gcpSecret }}
+        - mountPath: /etc/gcp
+          name: gcp-secret
+        {{ end }}
       nodeSelector: {{- toYaml .Values.nodeSelector | nindent 8 }}
       tolerations: {{- toYaml .Values.tolerations | nindent 8 }}
       volumes:
@@ -78,3 +82,10 @@ spec:
           sources:
           - secret:
               name: {{ .Values.tlsSecret.name | default (printf "%s" (include "fleet-telemetry.fullname" .)) }}
+      {{ if .Values.gcpSecret }}
+      - name: gcp-secret
+        projected:
+          sources:
+          - secret:
+              name: {{ .Values.gcpSecret }}
+      {{ end }}
