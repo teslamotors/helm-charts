@@ -1,14 +1,8 @@
 tlsSecret:
   name: ""
   create: false
-  tlsCrt: |
-    -----BEGIN CERTIFICATE----- 
-    MIICJzCCAYigAwIBAgIUUtY6HtACZ9GOlh/R2qriIQ2/5uwwCgYIKoZIzj0EAwIw FDESMBAGA1UEAwwJbG9jYWxob3N0MB4XDTIzMTExMzIzMDU1MVoXDTMzMTExMDIz MDU1MVowFDESMBAGA1UEAwwJbG9jYWxob3N0MIGbMBAGByqGSM49AgEGBSuBBAAj A4GGAAQBI6les+4Xm01K68dOcq32uqljnaCv5jJ3Z1Fao+YsGx5l6dA9wrbeYTig v4gp+erh+TOyOMTQWcWzK2mqoIf3VtIAZwdGKqWVyKhdxwBBR4Vq/xF4XyX7w96x QXihkPMGGCSmD+B9MKvi2+tksJtrblxHyoNbBppovHgJusAq7PvD12ijdTBzMB0G A1UdDgQWBBTNLV+CLWXUCFnUZO3MOW2Uqf2JNDAfBgNVHSMEGDAWgBTNLV+CLWXU CFnUZO3MOW2Uqf2JNDAPBgNVHRMBAf8EBTADAQH/MBMGA1UdJQQMMAoGCCsGAQUF BwMBMAsGA1UdDwQEAwICjDAKBggqhkjOPQQDAgOBjAAwgYgCQgCcWI03jd/P+2NX GQJ5iCf9S7cQoGStjaIRrXuaqYIZyfp3ji2eZYQ+TaX14vSuJA9ZVu4K/zx/4f/k Omq3gbnBfgJCAK/bceAqnXdcxlslTP0cr3t41exZzyEcMjcALXUQIJs4JbqIpMe4 YE/yMyMpIcR1sAL8mrnem/Tz3sSf2+ixfnFN 
-    -----END CERTIFICATE-----
-  tlsKey: |
-    -----BEGIN PRIVATE KEY----- 
-    MIHuAgEAMBAGByqGSM49AgEGBSuBBAAjBIHWMIHTAgEBBEIA61Jp679avDFcJwiJ t1p/wdg5mZrPDH3uDV0oBAg/ErlmlaADoWEcGFoDjo53FNAwcTmwk8Vt/erQI/1p DEAR6JqhgYkDgYYABAEjqV6z7hebTUrrx05yrfa6qWOdoK/mMndnUVqj5iwbHmXp 0D3Ctt5hOKC/iCn56uH5M7I4xNBZxbMraaqgh/dW0gBnB0YqpZXIqF3HAEFHhWr/ EXhfJfvD3rFBeKGQ8wYYJKYP4H0wq+Lb62Swm2tuXEfKg1sGmmi8eAm6wCrs+8PX aA== 
-    -----END PRIVATE KEY-----
+  tlsCrt: ""
+  tlsKey: ""
 image:
   repository: tesla/fleet-telemetry
   tag: v0.2.0
@@ -36,41 +30,7 @@ serviceInternal:
       targetPort: 4269
   type: ClusterIP
 config:
-  data: |
-    {
-      "host": "0.0.0.0",
-      "port": 8443,
-      "status_port": 8080,
-      "log_level": "info",
-      "json_log_enable": true,
-      "namespace": "tesla_telemetry",
-      "reliable_ack": false,
-      "monitoring": {
-        "prometheus_metrics_port": 9273,
-        "profiler_port": 4269,
-        "profiling_path": "/tmp/trace.out"
-      },
-      "rate_limit": {
-        "enabled": true,
-        "message_interval_time": 30,
-        "message_limit": 1000
-      },
-      "records": {
-        "alerts": [
-          "logger"
-        ],
-        "errors": [
-          "logger"
-        ],
-        "V": [
-          "logger"
-        ]
-      },
-      "tls": {
-        "server_cert": "/etc/certs/server/tls.crt",
-        "server_key": "/etc/certs/server/tls.key"
-      }
-    }
+  data: ""
   port: 8443
   status:
     port: 8080
@@ -79,5 +39,4 @@ config:
   profile:
     port: 4269
 kubernetesClusterDomain: cluster.local
-
 gcpSecret: null
