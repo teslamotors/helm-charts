@@ -39,5 +39,3 @@ config:
   profile:
     port: 4269
 kubernetesClusterDomain: cluster.local
-# Secret name. It must contain a "key.json" key having as value the contents of the JSON key of the service account used to manage the PubSub
-gcpSecret: null
