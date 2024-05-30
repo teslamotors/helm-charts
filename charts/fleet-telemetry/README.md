@@ -44,6 +44,7 @@ helm upgrade fleet-telemetry teslamotors/fleet-telemetry -n fleet-telemetry
 | `replicas`            | Number of pods                                                                      | `1`                     |
 | `service.annotations` | Service Annotations                                                                 | {}                      |
 | `service.type`        | Service Type                                                                        | ClusterIP               |
+| `gcpSecret`           | Name of existing secret if you use GCP PubSub (SA key must be set in the key.json)  | `nil`                   |
 
 ## Example
 * Set `config.data` in `values.yaml`
