@@ -8,6 +8,13 @@ externalSecrets:
 
 command: []
 
+serviceAccount:
+  create: true
+  automount: true
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::000000000000:role/aws-timestream-tenant1"
+  name: ""
+
 tlsSecret:
   name: ""
   create: false

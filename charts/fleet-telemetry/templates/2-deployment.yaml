@@ -20,6 +20,7 @@ spec:
         service: fleet-telemetry
       {{- include "fleet-telemetry.selectorLabels" . | nindent 8 }}
     spec:
+      serviceAccountName: {{ include "fleet-telemetry.serviceAccountName" . }}
       containers:
       - env:
         - name: KUBERNETES_CLUSTER_DOMAIN
