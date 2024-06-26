@@ -1,3 +1,13 @@
+env:
+  supressTls: false
+  kubernetesClusterDomain: cluster.local
+
+externalSecrets:
+  refreshInterval: 2m0s
+  secretName: dev-tesla-fleet-telemetry-dev-customer
+
+command: []
+
 tlsSecret:
   name: ""
   create: false
@@ -38,4 +48,3 @@ config:
     port: 9273
   profile:
     port: 4269
-kubernetesClusterDomain: cluster.local
