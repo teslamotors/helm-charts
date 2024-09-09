@@ -5,7 +5,7 @@ tlsSecret:
   tlsKey: ""
 image:
   repository: tesla/fleet-telemetry
-  tag: v0.3.0
+  tag: latest
 resources: {}
 nodeSelector: {}
 tolerations: []
