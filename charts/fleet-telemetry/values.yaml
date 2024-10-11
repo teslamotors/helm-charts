@@ -1,9 +1,9 @@
 tlsSecret:
   name: ""
-  extraServerCerts: []
   create: false
   tlsCrt: ""
   tlsKey: ""
+  extraServerCerts: []
 image:
   repository: tesla/fleet-telemetry
   tag: latest
