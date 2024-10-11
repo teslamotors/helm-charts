@@ -74,3 +74,8 @@ spec:
           sources:
           - secret:
               name: {{ .Values.tlsSecret.name | default (printf "%s" (include "fleet-telemetry.fullname" .)) }}
+          {{- if .Values.tlsSecret.name -}}
+          {{- if .Values.tlsSecret.extraServerCerts -}}
+          {{- toYaml .Values.tlsSecret.extraServerCerts | nindent 10 }}
+          {{- end -}}
+          {{- end -}}

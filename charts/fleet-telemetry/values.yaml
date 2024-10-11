@@ -1,5 +1,6 @@
 tlsSecret:
   name: ""
+  extraServerCerts: []
   create: false
   tlsCrt: ""
   tlsKey: ""

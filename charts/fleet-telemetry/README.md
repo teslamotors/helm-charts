@@ -31,19 +31,20 @@ helm upgrade fleet-telemetry teslamotors/fleet-telemetry -n fleet-telemetry
 ```
 
 ## Configuration
-| Parameter             | Description                                                                         | Default                 |
-|-----------------------|-------------------------------------------------------------------------------------|-------------------------|
-| `tlsSecret.name`      | Name of existing secret, if this value is set `tlsCrt` and `tlsKey` will be ignored | `nil`                   |
-| `tlsSecret.tlsCrt`    | value of the certification                                                          | `nil`                   |
-| `tlsSecret.tlsKey`    | value of the encryption key                                                         | `nil`                   |
-| `image.repository`    | value of the docker image repo                                                      | `tesla/fleet-telemetry` |
-| `image.tag`           | value of the docker image tag                                                       | `latest`                |
-| `resources`           | CPU/Memory resource requests/limits                                                 | {}                      |
-| `nodeSelector`        | Node labels for pod assignment                                                      | {}                      |
-| `tolerations`         | Toleration labels for pod assignment                                                | {}                      |
-| `replicas`            | Number of pods                                                                      | `1`                     |
-| `service.annotations` | Service Annotations                                                                 | {}                      |
-| `service.type`        | Service Type                                                                        | ClusterIP               |
+| Parameter                    | Description                                                                         | Default                 |
+|------------------------------|-------------------------------------------------------------------------------------|-------------------------|
+| `tlsSecret.name`             | Name of existing secret, if this value is set `tlsCrt` and `tlsKey` will be ignored | `nil`                   |
+| `tlsSecret.extraServerCerts` | If `name` is set, additional sources of certificates can be added                   | []                      |
+| `tlsSecret.tlsCrt`           | value of the certification                                                          | `nil`                   |
+| `tlsSecret.tlsKey`           | value of the encryption key                                                         | `nil`                   |
+| `image.repository`           | value of the docker image repo                                                      | `tesla/fleet-telemetry` |
+| `image.tag`                  | value of the docker image tag                                                       | `latest`                |
+| `resources`                  | CPU/Memory resource requests/limits                                                 | {}                      |
+| `nodeSelector`               | Node labels for pod assignment                                                      | {}                      |
+| `tolerations`                | Toleration labels for pod assignment                                                | {}                      |
+| `replicas`                   | Number of pods                                                                      | `1`                     |
+| `service.annotations`        | Service Annotations                                                                 | {}                      |
+| `service.type`               | Service Type                                                                        | ClusterIP               |
 
 ## Example
 * Set `config.data` in `values.yaml`
